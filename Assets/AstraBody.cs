@@ -59,7 +59,6 @@ public class AstraBody : MonoBehaviour
         //{
         //    return;
         //}
-        print("e");
         _lastFrameIndex = frame.FrameIndex;
         //bodyStream.
         frame.CopyBodyData(ref _bodies);

@@ -304,7 +304,6 @@ public class AstraController : MonoBehaviour
                     if(_lastBodyFrameIndex != bodyFrame.FrameIndex)
                     {
                         _lastBodyFrameIndex = bodyFrame.FrameIndex;
-                        print("out");
                         NewBodyFrameEvent.Invoke(_bodyStream, bodyFrame);
                         NewBodyMaskEvent.Invoke(bodyFrame.BodyMask);
                     }

@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d8e91e4e7e46b040b7a9335a8bd24a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AndroidQuitOnPause: 0
+  AndroidQuitOnPause: 1
   AndroidQuitOnBack: 1
 --- !u!4 &51281892
 Transform:
@@ -310,11 +310,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff88cbd6111929a4592251d37451cd91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  depthScaler: 1604
+  particledepthScaler: 1562
   ps: {fileID: 1378098691}
-  particleCooldown: 0.03
-  particledepthScaler: 2654
-  yallaScale: 55152
+  particleChunks: 5
+  particleCooldown: 0.1
 --- !u!23 &471769236
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -498,13 +497,13 @@ MonoBehaviour:
   drawJoints: 0
   drawLineBody: 0
   fillBody: 0
-  leftArmRenderer: {fileID: 1952283097}
-  rightArmRenderer: {fileID: 1425892766}
-  leftLegRenderer: {fileID: 1555098786}
-  rightLegRenderer: {fileID: 987179608}
-  torsoRenderer: {fileID: 926086733}
-  JointPrefab: {fileID: 100000, guid: 1190a34979a38ae4db353c77e7cd2281, type: 2}
-  JointRoot: {fileID: 252086342}
+  leftArmRenderer: {fileID: 0}
+  rightArmRenderer: {fileID: 0}
+  leftLegRenderer: {fileID: 0}
+  rightLegRenderer: {fileID: 0}
+  torsoRenderer: {fileID: 0}
+  JointPrefab: {fileID: 0}
+  JointRoot: {fileID: 0}
   ToggleSeg: {fileID: 0}
   ToggleSegBody: {fileID: 0}
   ToggleSegBodyHand: {fileID: 0}
@@ -5564,18 +5563,7 @@ MonoBehaviour:
       PublicKeyToken=null
   NewColorFrameEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: NewColorFrameEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   NewBodyFrameEvent:
@@ -5607,7 +5595,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 1
+        m_CallState: 2
     m_TypeName: NewMaskedColorFrameEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   NewColorizedBodyFrameEvent:
@@ -5628,18 +5616,7 @@ MonoBehaviour:
       PublicKeyToken=null
   NewBodyMaskEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: NewBodyMaskEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   NewPointFrameEvent:
@@ -6239,7 +6216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 365591915a8090f4a892835f70ca5512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneName: TestScene2
+  SceneName: 
 --- !u!4 &1923555320
 Transform:
   m_ObjectHideFlags: 0

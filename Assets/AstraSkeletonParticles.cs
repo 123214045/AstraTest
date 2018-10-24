@@ -4,21 +4,26 @@ using UnityEngine;
 
 public class AstraSkeletonParticles : MonoBehaviour
 {
+
+    [SerializeField] [Range(1.0f, 50000.0f)] public float particledepthScaler;
+    [SerializeField] public ParticleSystem ps;
+    [SerializeField] private int particleChunks = 5; //Higher = Better performance because less particles are drawn per update
+
     private Texture2D _texture;
     private Color[] _textureBuffer;
 
     private long _lastFrameIndex = -1;
     private short[] _depthFrameData;
     private const TextureFormat Format = TextureFormat.RGBA32;
-    [SerializeField] [Range(1.0f, 50000.0f)] public float particledepthScaler;
+    
     //[SerializeField][Range(100.0f, 10000.0f)] private float depthScaler;
     private float particleTimer = 0.0f;
-    [SerializeField] public ParticleSystem ps;
+    
 
     [Range(0.0f, 5.0f)] public float particleCooldown;
 
     private int currentChunk = 0;
-    [SerializeField] private int particleChunks = 5; //Higher = Better performance because less particles are drawn per update
+    
 
     private void Start()
     {
@@ -146,7 +151,7 @@ public class AstraSkeletonParticles : MonoBehaviour
         ParticleSystem.EmitParams psParams = new ParticleSystem.EmitParams();
         float lz= worldPosData[0].Z;
         float hz= worldPosData[0].Z;
-        for (int i = iStart% iStartIncrementer; i < length; i+= iStartIncrementer)
+        for (int i = currentChunk% particleChunks; i < length; i+= particleChunks)
         {
             if (particleTimer > particleCooldown && colorArray[i].a != 0 && i % 7 == 0)
             {
@@ -165,7 +170,7 @@ public class AstraSkeletonParticles : MonoBehaviour
                     hz = worldPosData[i].Z;
                 if (worldPosData[i].Z < lz)
                     lz = worldPosData[i].Z;
-                iStart++;
+                currentChunk=(currentChunk+1)%particleChunks;
             }
                 
         }

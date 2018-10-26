@@ -28,6 +28,14 @@ public class BodyMaskRenderer : MonoBehaviour
         _lastFrameIndex = frame.FrameIndex;
         EnsureTexture(frame.Width, frame.Height);
         _texture.LoadRawTextureData(frame.DataPtr, (int)frame.ByteLength);
+//        .material.SetTexture("_MainTex", _texture);
+        MeshRenderer mr = GetComponent<MeshRenderer>();
+        MaterialPropertyBlock mpb = new MaterialPropertyBlock();
+        mr.GetPropertyBlock(mpb);
+        mpb.SetFloat("_Outline", true ? 1f : 0);
+        mpb.SetColor("_OutlineColor", new Color(0,0,0));
+        mr.SetPropertyBlock(mpb);
+
         _texture.Apply();
     }
 

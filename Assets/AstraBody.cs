@@ -35,6 +35,10 @@ public class AstraBody : MonoBehaviour
     private Astra.BodyTrackingFeatures _previousTargetFeatures = Astra.BodyTrackingFeatures.HandPose;
     private Astra.SkeletonProfile _previousSkeletonProfile = Astra.SkeletonProfile.Full;
 
+    private Astra.HandPose leftHandPose = Astra.HandPose.Unknown;
+    private Astra.HandPose rightHandPose = Astra.HandPose.Unknown;
+    private GameObject grabbedLeftHand;
+    private GameObject grabbedRightHand;
     private void Awake()
     {
         _bodySkeletons = new Dictionary<int, GameObject[]>();
@@ -78,7 +82,6 @@ public class AstraBody : MonoBehaviour
     //float highestX = 0;
     void UpdateSkeletonsFromBodies(Astra.Body[] bodies)
     {
-        print("Number of body joints: body.Joints.Length");
 
         //Astra.DepthStream soup = ;
         foreach (var body in bodies)
@@ -161,10 +164,51 @@ public class AstraBody : MonoBehaviour
                     if (bodyJoint.Type == Astra.JointType.LeftHand)
                     {
                         UpdateHandPoseVisual(skeletonJoint, body.HandPoseInfo.LeftHand);
+
+                        if (leftHandPose == Astra.HandPose.Unknown && body.HandPoseInfo.LeftHand == Astra.HandPose.Grip)
+                        {
+                            foreach (GameObject go in GameObject.FindGameObjectsWithTag("Pickupable"))
+                            {
+                                if (Vector3.Distance(go.transform.position, skeletonJoint.transform.position) < 1)
+                                {
+                                    go.GetComponent<Grabbable>().getGrabbed(skeletonJoint);
+                                    grabbedLeftHand = go;
+                                    //go.transform.position = skeletonJoint.transform.position;
+                                    //go.transform.parent = skeletonJoint.transform;
+                                    //print("grabbedBall");
+                                }
+                            }
+                        }
+                        else if (leftHandPose == Astra.HandPose.Unknown && body.HandPoseInfo.LeftHand == Astra.HandPose.Grip && grabbedLeftHand !=null)
+                        {
+                            grabbedLeftHand.GetComponent<Grabbable>().release();
+                        }
+                        leftHandPose = body.HandPoseInfo.RightHand;
+
                     }
                     else if (bodyJoint.Type == Astra.JointType.RightHand)
                     {
                         UpdateHandPoseVisual(skeletonJoint, body.HandPoseInfo.RightHand);
+
+                        if (rightHandPose == Astra.HandPose.Unknown && body.HandPoseInfo.RightHand == Astra.HandPose.Grip)
+                        {
+                            foreach (GameObject go in GameObject.FindGameObjectsWithTag("Pickupable"))
+                            {
+                                if (Vector3.Distance(go.transform.position, skeletonJoint.transform.position) < 1)
+                                {
+                                    go.GetComponent<Grabbable>().getGrabbed(skeletonJoint);
+                                    grabbedRightHand = go;
+                                    //go.transform.position = skeletonJoint.transform.position;
+                                    //go.transform.parent = skeletonJoint.transform;
+                                    //print("grabbedBall");
+                                }
+                            }
+                        }
+                        else if (leftHandPose == Astra.HandPose.Unknown && body.HandPoseInfo.LeftHand == Astra.HandPose.Grip && grabbedLeftHand != null)
+                        {
+                            grabbedLeftHand.GetComponent<Grabbable>().release();
+                        }
+                        rightHandPose = body.HandPoseInfo.RightHand;
                     }
                 }
                 else
